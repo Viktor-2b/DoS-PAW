@@ -51,7 +51,7 @@ def solve_alpha_crit(omega_b, gamma, r1, r2, eta=0.1, beta=0.25):
         return np.nan
 
 
-def plot_figure_2_shaded():
+def plot_figure_2():
     print("正在求解稳态方程并生成带有阴影的 2x2 子图...")
     omega_bs = np.linspace(0, 12.0, 500)  # 提高分辨率让阴影更平滑
 
@@ -82,8 +82,8 @@ def plot_figure_2_shaded():
         ax.fill_between(omega_bs, fill_b_dos, 0.5, color='#d62728', alpha=0.35)
 
         # 绘制边界实线
-        ax.plot(omega_bs, raw_alpha_b_dos, color='black', linestyle='-', linewidth=2.0, zorder=4)
-        ax.plot(omega_bs, raw_alpha_paw, color='black', linestyle='--', linewidth=2.0, zorder=4)
+        ax.plot(omega_bs, raw_alpha_b_dos, color='black', linestyle='--', linewidth=2.0, zorder=4)
+        ax.plot(omega_bs, raw_alpha_paw, color='black', linestyle='-', linewidth=2.0, zorder=4)
 
         ax.set_title(rf'{subplot_labels[i]} Propagation Advantage $\gamma={gamma}$', fontsize=14, pad=10)
         ax.set_ylim(0, 0.5)
@@ -101,18 +101,18 @@ def plot_figure_2_shaded():
     hatch_patch = m_patches.Patch(facecolor='#ff7f0e', alpha=0.35, hatch='//', edgecolor='white',
                                   label='Vulnerable to DoS PAW (Ours)')
     red_patch = m_patches.Patch(color='#d62728', alpha=0.35, label='Vulnerable to both')
-    line_b_dos = plt.Line2D([0], [0], color='black', linestyle='-', linewidth=2.0, label='BDoS Boundary')
-    line_paw = plt.Line2D([0], [0], color='black', linestyle='--', linewidth=2.0, label='DoS PAW Boundary')
+    line_b_dos = plt.Line2D([0], [0], color='black', linestyle='--', linewidth=2.0, label='BDoS Boundary')
+    line_paw = plt.Line2D([0], [0], color='black', linestyle='-', linewidth=2.0, label='DoS PAW Boundary')
 
     # 将全局图例放在顶部右侧
     axes[1].legend(handles=[line_b_dos, line_paw, green_patch, hatch_patch, red_patch],
                loc='upper right', fontsize=10, framealpha=0.95)
 
     plt.tight_layout()  # 留出顶部大标题和图例的空间
-    plt.savefig('Figure_2.pdf', format='pdf')
+    plt.savefig('../figures/Figure_2.pdf', format='pdf')
     print("图表已保存为 Figure_2.pdf")
     plt.show()
 
 
 if __name__ == '__main__':
-    plot_figure_2_shaded()
+    plot_figure_2()

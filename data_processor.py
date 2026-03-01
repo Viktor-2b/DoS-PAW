@@ -102,10 +102,10 @@ def generate_daily_metrics(df, output_file, window_days=30):
     return df_daily
 
 if __name__ == "__main__":
-    input_chain_filename = 'btc_chain.csv'
-    input_price_filename = 'btc-usd.csv'
-    output_block_filename = 'block_metrics.csv'
-    output_daily_filename = 'daily_params.csv'
+    input_chain_filename = 'dataset/btc_chain.csv'
+    input_price_filename = 'dataset/btc-usd.csv'
+    output_block_filename = 'dataset/block_metrics.csv'
+    output_daily_filename = 'dataset/daily_params.csv'
     df_block_metrics = generate_block_metrics(input_chain_filename, output_block_filename)
     generate_daily_metrics(df_block_metrics, output_daily_filename)
     print("数据预处理全部完成，")

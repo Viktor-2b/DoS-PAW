@@ -42,6 +42,6 @@ def print_tables(input_blocks, input_daily):
     print("=" * 50 + "\n")
 
 if __name__ == "__main__":
-    input_blocks_filename = 'block_metrics.csv'
-    input_daily_filename = 'daily_params.csv'
+    input_blocks_filename = '../dataset/block_metrics.csv'
+    input_daily_filename = '../dataset/daily_params.csv'
     print_tables(input_blocks_filename, input_daily_filename)

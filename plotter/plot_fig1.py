@@ -129,10 +129,13 @@ def plot_figure_1(input_block, input_daily, input_price):
     plt.setp(ax3.xaxis.get_majorticklabels(), rotation=30, ha='center')
 
     plt.tight_layout()
-    plt.savefig('Figure_1.pdf', format='pdf')
+    plt.savefig('../figures/Figure_1.pdf', format='pdf')
     print("图表已保存为 Figure_1.pdf")
     plt.show()
 
 
 if __name__ == "__main__":
-    plot_figure_1('block_metrics.csv', 'daily_params.csv', 'btc-usd.csv')
+    input_block_filename = '../dataset/block_metrics.csv'
+    input_daily_filename = '../dataset/daily_params.csv'
+    input_price_filename = '../dataset/btc-usd.csv'
+    plot_figure_1(input_block_filename, input_daily_filename, input_price_filename)
