@@ -7,7 +7,7 @@ plt.rcParams['font.serif'] = ['Times New Roman']
 plt.rcParams['font.size'] = 12
 
 
-def calc_net_cost(omega_b, alpha, gamma, r1, r2, eta=0.1, beta=0.25, is_b_dos=False):
+def calc_net_cost(omega_b, alpha, gamma, r1, r2, eta=0.1, beta=0.2, is_b_dos=False):
     """
     计算攻击者的归一化净成本率 (C_atk / c)
     """
@@ -27,27 +27,28 @@ def calc_net_cost(omega_b, alpha, gamma, r1, r2, eta=0.1, beta=0.25, is_b_dos=Fa
     p_a3 = (1 - r2) * alpha + gamma * (eta + delta)
     p_a4 = alpha + gamma * (beta + eta + delta)
     p_a5 = alpha + beta + gamma * (eta + delta)
-    p_beta3 = 1 - p_a3
+    p_3 = 1 - p_a3
 
     # 3. 计算攻击者的收益
     r_block = beta * pi_1 * p_a3 + (eta + delta) * pi_1 * p_a4
-
-    if beta + r2 * alpha > 0:
-        pool_total_revenue = beta * pi_0 + beta * pi_1 * p_beta3 + (eta + delta) * pi_2 * p_a5
-        r_share = (r2 * alpha) / (beta + r2 * alpha) * pool_total_revenue
+    expected_attacker_shares=(r1 * alpha) * pi_0 + (r2 * alpha) * (pi_1 + pi_2)
+    if beta + expected_attacker_shares > 0:
+        pool_total_revenue = beta * pi_0 + beta * pi_1 * p_3 + (eta + delta) * pi_2 * p_a5
+        fraction = expected_attacker_shares / (beta + expected_attacker_shares)
+        r_share = fraction * pool_total_revenue
     else:
         r_share = 0.0
 
     # 4. 净成本 = 成本 - 收益
     total_revenue = omega_b * (r_block + r_share)
-    cost = alpha * pi_0
+    cost = alpha * pi_0 + (r2 * alpha) * (pi_1 + pi_2)
 
     return cost - total_revenue
 
 
 def plot_figure_3():
     print("正在计算攻击者净成本率并生成合并图表...")
-    omega_bs = np.linspace(1.0, 6.0, 200)
+    omega_bs = np.linspace(1.0, 6.0, 500)
 
     gamma_fixed = 0.5
 
@@ -94,7 +95,7 @@ def plot_figure_3():
     ax.grid(True, linestyle=':', alpha=0.6, zorder=1)
 
     # 6. 设置图例
-    ax.legend(loc='lower right', bbox_to_anchor=(0.99, 0.15), fontsize=11, framealpha=0.95)
+    ax.legend(loc='lower right', fontsize=11, framealpha=0.95)
 
     plt.tight_layout()
     plt.savefig('../figures/Figure_3.pdf', format='pdf')
