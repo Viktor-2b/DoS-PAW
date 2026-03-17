@@ -8,6 +8,7 @@ plt.rcParams['font.family'] = 'serif'
 plt.rcParams['font.serif'] = ['Times New Roman']
 plt.rcParams['font.size'] = 12
 
+# TODO 一定要有gamma=0.5的图
 
 def solve_alpha_crit(omega_b, gamma, r1, r2, eta=0.1, beta=0.25):
     """
